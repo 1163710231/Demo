@@ -15,7 +15,7 @@ public class InsertEmployee extends QuartzJobBean {
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        Employee employee = new Employee("name", "email", 1, 1, new Date());
+        Employee employee = new Employee("name", "email", 1, 101, new Date());
         int insertNumber = employeeMapper.insertEmployee(employee);
         System.out.println("成功向 employee 插入了 " + insertNumber + " 条数据!");
     }

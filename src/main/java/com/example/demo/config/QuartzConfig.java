@@ -19,7 +19,7 @@ public class QuartzConfig {
         return JobBuilder.newJob(InsertEmployee.class).storeDurably().build();
     }
 
-    @Bean
+//    @Bean
     public Trigger trigger1(){
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
                 .withIntervalInSeconds(5) // 每一秒执行一次
@@ -30,7 +30,7 @@ public class QuartzConfig {
                 .build();
     }
 
-    @Bean
+//    @Bean
     public Trigger insertEmployeeTrigger() {
         return TriggerBuilder.newTrigger()
                 .forJob(insertEmployeeJobDetail())

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.NetCircuitMapper">
+<!--    <sql id="Base_Column_List_other">-->
+<!--        IFNULL(a.circuit_id,'') circuit_id,-->
+<!--        IFNULL(a.circuit_no,'')  circuit_no,-->
+<!--        IFNULL(a.circuit_name,'')  circuit_name ,-->
+<!--        IFNULL(a.system_id,'')  system_id ,-->
+<!--        IFNULL(a.depart_id,'')  depart_id ,-->
+<!--        IFNULL(a.station_id,'')  station_id ,-->
+<!--        IFNULL(b.station_name,'')  station_name ,-->
+<!--        CASE when a.valid_state = 1 then '有效' else '无效' end vState-->
+<!--    </sql>-->
+
+<!--    <select id="getNetCircuitById" parameterType="java.lang.Integer" resultType="BaseResultMap">-->
+<!--        select *-->
+<!--        from net_circuit-->
+<!--                 left join net_station on net_circuit.station_id = net_station.station_id-->
+<!--        where net_circuit.circuit_id = #{circuitId, jdbcType=INTEGER};-->
+<!--    </select>-->
+</mapper>

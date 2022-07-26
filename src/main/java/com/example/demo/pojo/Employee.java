@@ -26,4 +26,12 @@ public class Employee {
         this.departmentId = departmentId;
         this.birth = birth;
     }
+
+    public Employee(String lastName, String email, Integer gender, Integer departmentId, Date birth) {
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.departmentId = departmentId;
+        this.birth = birth;
+    }
 }

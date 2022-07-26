@@ -1,21 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.NetCircuitMapper">
-<!--    <sql id="Base_Column_List_other">-->
-<!--        IFNULL(a.circuit_id,'') circuit_id,-->
-<!--        IFNULL(a.circuit_no,'')  circuit_no,-->
-<!--        IFNULL(a.circuit_name,'')  circuit_name ,-->
-<!--        IFNULL(a.system_id,'')  system_id ,-->
-<!--        IFNULL(a.depart_id,'')  depart_id ,-->
-<!--        IFNULL(a.station_id,'')  station_id ,-->
-<!--        IFNULL(b.station_name,'')  station_name ,-->
-<!--        CASE when a.valid_state = 1 then '有效' else '无效' end vState-->
-<!--    </sql>-->
+    <resultMap id="BaseResultMap" type="com.example.demo.pojo.NetCircuitVo">
+        <id column="circuit_id" jdbcType="INTEGER" property="circuitId" />
+        <result column="circuit_no" jdbcType="VARCHAR" property="circuitNo" />
+        <result column="circuit_name" jdbcType="VARCHAR" property="circuitName" />
+        <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+        <result column="system_id" jdbcType="INTEGER" property="systemId" />
+        <result column="depart_id" jdbcType="INTEGER" property="departId" />
+        <result column="station_id" jdbcType="INTEGER" property="stationId" />
+        <result column="valid_state" jdbcType="INTEGER" property="validState" />
+        <result column="vState" jdbcType="VARCHAR" property="vState" />
+        <result column="heat_area" jdbcType="DECIMAL" property="heatArea" />
+        <result column="second_design_flow" jdbcType="DECIMAL" property="secondDesignFlow" />
+        <result column="second_supply_flow" jdbcType="INTEGER" property="secondSupplyFlow" />
+        <result column="second_total_supply_flow" jdbcType="INTEGER" property="secondTotalSupplyFlow" />
+        <result column="second_return_flow" jdbcType="INTEGER" property="secondReturnFlow" />
+        <result column="second_total_return_flow" jdbcType="INTEGER" property="secondTotalReturnFlow" />
+        <result column="second_heat_quantity" jdbcType="INTEGER" property="secondHeatQuantity" />
+        <result column="second_total_heat" jdbcType="INTEGER" property="secondTotalHeat" />
+        <result column="second_supply_press" jdbcType="INTEGER" property="secondSupplyPress" />
+        <result column="second_return_press" jdbcType="INTEGER" property="secondReturnPress" />
+        <result column="second_diff_press" jdbcType="INTEGER" property="secondDiffPress" />
+        <result column="second_supply_tempr" jdbcType="INTEGER" property="secondSupplyTempr" />
+        <result column="second_return_tempr" jdbcType="INTEGER" property="secondReturnTempr" />
+        <result column="design_supply_tempr" jdbcType="DECIMAL" property="designSupplyTempr" />
+        <result column="design_return_tempr" jdbcType="DECIMAL" property="designReturnTempr" />
+        <result column="fixed_press" jdbcType="INTEGER" property="fixedPress" />
+        <result column="design_heat_index" jdbcType="DECIMAL" property="designHeatIndex" />
+        <result column="actual_heat_index" jdbcType="DECIMAL" property="actualHeatIndex" />
+        <result column="water_replenish" jdbcType="INTEGER" property="waterReplenish" />
+        <result column="total_replenish" jdbcType="INTEGER" property="totalReplenish" />
+        <result column="inverter_frequency" jdbcType="INTEGER" property="inverterFrequency" />
+        <result column="circulate_pump_power" jdbcType="INTEGER" property="circulatePumpPower" />
+        <result column="replenish_pump_power" jdbcType="INTEGER" property="replenishPumpPower" />
+        <result column="water_level" jdbcType="INTEGER" property="waterLevel" />
+        <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    </resultMap>
 
-<!--    <select id="getNetCircuitById" parameterType="java.lang.Integer" resultType="BaseResultMap">-->
-<!--        select *-->
-<!--        from net_circuit-->
-<!--                 left join net_station on net_circuit.station_id = net_station.station_id-->
-<!--        where net_circuit.circuit_id = #{circuitId, jdbcType=INTEGER};-->
-<!--    </select>-->
+    <sql id="Base_Column_List_other">
+        IFNULL(n_c.circuit_id,'') circuit_id,
+        IFNULL(n_c.circuit_no,'')  circuit_no,
+        IFNULL(n_c.circuit_name,'')  circuit_name ,
+        IFNULL(n_c.system_id,'')  system_id ,
+        IFNULL(n_c.depart_id,'')  depart_id ,
+        IFNULL(n_c.station_id,'')  station_id ,
+        IFNULL(n_s.station_name,'')  station_name ,
+        CASE when n_c.valid_state = 1 then '有效' else '无效' end vState
+    </sql>
+
+    <select id="getNetCircuitById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List_other" />
+        from net_circuit n_c
+        left join net_station n_s on n_c.station_id = n_s.station_id
+        where n_c.circuit_id = #{circuitId, jdbcType=INTEGER};
+    </select>
 </mapper>

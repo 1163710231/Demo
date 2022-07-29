@@ -38,6 +38,16 @@
         <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     </resultMap>
 
+    <sql id="Base_Column_List">
+        circuit_id, circuit_no, circuit_name, system_id, depart_id, station_id, valid_state,
+    heat_area, second_design_flow, second_supply_flow, second_total_supply_flow, second_return_flow,
+    second_total_return_flow, second_heat_quantity, second_total_heat, second_supply_press,
+    second_return_press, second_diff_press, second_supply_tempr, second_return_tempr,
+    design_supply_tempr, design_return_tempr, fixed_press, design_heat_index, actual_heat_index,
+    water_replenish, total_replenish, inverter_frequency, circulate_pump_power, replenish_pump_power,
+    water_level, is_delete
+    </sql>
+
     <sql id="Base_Column_List_other">
         IFNULL(n_c.circuit_id,'') circuit_id,
         IFNULL(n_c.circuit_no,'')  circuit_no,

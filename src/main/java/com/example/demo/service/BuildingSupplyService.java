@@ -62,7 +62,7 @@ public class BuildingSupplyService {
         }
         // 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数
         long endTime = System.currentTimeMillis();
-        long usedMinute = (endTime - startTime) / 1000 / 60;
+        double usedMinute = (endTime - startTime) / 1000.0 / 60.0;
         System.out.println("成功插入了 " + insertCount + " 条数据，共用时 " + usedMinute + " 分钟");
         return insertCount;
     }
@@ -109,7 +109,7 @@ public class BuildingSupplyService {
         }
         // 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数
         long endTime = System.currentTimeMillis();
-        long usedMinute = (endTime - startTime) / 1000 / 60;
+        double usedMinute = (endTime - startTime) / 1000.0 / 60.0;
         System.out.println("成功插入了 " + insertCount + " 条数据，共用时 " + usedMinute + " 分钟");
         return insertCount;
     }

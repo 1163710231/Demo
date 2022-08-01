@@ -15,19 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-//@RestController
 public class EmployeeController {
     @Autowired
     EmployeeMapper employeeMapper;
 
     @Autowired
     DepartmentMapper departmentMapper;
-
-//    @Autowired
-//    EmployeeDao employeeDao;
-
-//    @Autowired
-//    DepartmentDao departmentDao;
 
     @GetMapping("/selectAllEmployees")
     @ResponseBody
@@ -51,7 +44,6 @@ public class EmployeeController {
 
     @GetMapping("/emp")
     public String toAddPage(Model model) {
-//        Collection<Department> departments = departmentDao.getDepartments();
         Collection<Department> departments = departmentMapper.selectAllDepartments();
         model.addAttribute("departments", departments);
         return "emp/add";
@@ -59,7 +51,6 @@ public class EmployeeController {
 
     @PostMapping("/emp")
     public String addEmployee(Employee employee) {
-//        employeeDao.save(employee);
         employee.setDepartmentId(employee.getDepartmentId());
         int insertNumber = employeeMapper.insertEmployee(employee);
         System.out.println("成功向 employee 插入了 " + insertNumber + " 条数据!");
@@ -68,11 +59,9 @@ public class EmployeeController {
 
     @GetMapping("/emp/{id}")
     public String toUpdateEmp(@PathVariable("id") Integer id, Model model) {
-//        Employee employee = employeeDao.getEmployeeById(id);
         Employee employee = employeeMapper.selectEmployeeById(id);
         model.addAttribute("emp", employee);
 
-//        Collection<Department> departments = departmentDao.getDepartments();
         Collection<Department> departments = departmentMapper.selectAllDepartments();
         model.addAttribute("departments", departments);
 
@@ -81,7 +70,6 @@ public class EmployeeController {
 
     @RequestMapping("/updateEmp")
     public String updateEmp(Employee employee) {
-//        employeeDao.save(employee);
         int updateNumber = employeeMapper.updateEmployee(employee);
         System.out.println("成功修改了 employee 中的 " + updateNumber + " 条数据!");
         return "redirect:/employees";
@@ -89,7 +77,6 @@ public class EmployeeController {
 
     @GetMapping("/deleteEmp/{id}")
     public String deleteEmp(@PathVariable("id") Integer id) {
-//        employeeDao.delete(id);
         int deleteNumber = employeeMapper.deleteEmployeeById(id);
         System.out.println("成功删除了 employee 中的 " + deleteNumber + " 条数据!");
         return "redirect:/employees";

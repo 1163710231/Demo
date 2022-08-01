@@ -5,8 +5,22 @@ public class SegmentTree<E> {
     private final E[] treeArray;  // 用于存储线段树的数组
     private final MergeTool<E> mergeTool;    // 用于融合线段树的工具
 
+    @SuppressWarnings("unchecked")
     public SegmentTree(E[] dataArray, MergeTool<E> mergeTool) {
         this.mergeTool = mergeTool;
+
+        // 初始化 dataArray
+        this.dataArray = (E[]) new Object[dataArray.length];
+        System.arraycopy(dataArray, 0, this.dataArray, 0, dataArray.length);
+
+        // 初始化 treeArray
+        this.treeArray = (E[]) new Object[dataArray.length * 4];
+        buildSegmentTree(0, 0, dataArray.length - 1);
+    }
+
+    @SuppressWarnings("unchecked")
+    public SegmentTree(E[] dataArray, TreeNodeMergeTool treeNodeMergeTool) {
+        this.mergeTool = (MergeTool<E>) treeNodeMergeTool;
 
         // 初始化 dataArray
         this.dataArray = (E[]) new Object[dataArray.length];
@@ -162,14 +176,14 @@ public class SegmentTree<E> {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+        stringBuilder.append("[\n");
         for (int i = 0; i < treeArray.length; i++) {
             if (treeArray[i] != null) stringBuilder.append(treeArray[i]);
             else stringBuilder.append("null");
 
-            if (i != treeArray.length - 1) stringBuilder.append(",");
+            if (i != treeArray.length - 1) stringBuilder.append(", \n");
         }
-        stringBuilder.append("]");
+        stringBuilder.append("\n]");
         return stringBuilder.toString();
     }
 }

@@ -19,4 +19,13 @@ public class BuildingSupplyService {
     public List<BuildingSupply> selectAll() {
         return buildingSupplyMapper.selectAll();
     }
+
+    /**
+     *
+     * @param id 要查找的 BuildingSupply 的 id
+     * @return 返回要查找的 BuildingSupply 数据
+     */
+    public BuildingSupply selectById(int id) {
+        return buildingSupplyMapper.selectById(id);
+    }
 }

@@ -5,4 +5,10 @@
         select id, city, station, building_id as buildingId, time, time_prefix as timePrefix
         from building_supply;
     </select>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="BuildingSupply">
+        select id, city, station, building_id as buildingId, time, time_prefix as timePrefix
+        from building_supply
+        where id = #{id};
+    </select>
 </mapper>

@@ -9,9 +9,9 @@ import java.util.List;
 @Mapper  // 这个注解表示这是一个 mybatis 的 mapper 类
 @Repository  // 被 spring 整合
 public interface BuildingSupplyMapper {
-    public List<BuildingSupply> selectAll();
+    List<BuildingSupply> selectAll();
 
-    public BuildingSupply selectById(int id);
+    BuildingSupply selectById(int id);
 
-    public int insertOneData(BuildingSupply buildingSupply);
+    int insertOneData(BuildingSupply buildingSupply);
 }

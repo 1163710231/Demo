@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Random;
 
 @Controller
 public class BuildingSupplyController {
@@ -29,5 +30,13 @@ public class BuildingSupplyController {
         BuildingSupply buildingSupply = buildingSupplyService.selectById(id);
         System.out.println("成功查找到了目标 BuildingSupply :" + buildingSupply);
         return buildingSupply;
+    }
+
+    @GetMapping("/insertData/{insertNumber}")
+    @ResponseBody
+    public String insertData(@PathVariable("insertNumber") int insertNumber) {
+        Random random = new Random();
+        int insertSucceedNumber = buildingSupplyService.insertData(random, insertNumber);
+        return "成功插入了 " + insertSucceedNumber + " 条数据";
     }
 }

@@ -11,4 +11,10 @@
         from building_supply
         where id = #{id};
     </select>
+
+    <insert id="insertOneData" parameterType="BuildingSupply">
+        insert into building_supply
+            (city, station, building_id, time, time_prefix)
+            value (#{city}, #{station}, #{buildingId}, #{time}, #{timePrefix})
+    </insert>
 </mapper>

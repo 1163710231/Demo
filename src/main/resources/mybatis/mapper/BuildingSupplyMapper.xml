@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.BuildingSupplyMapper">
     <select id="selectAll" resultType="BuildingSupply">
-        select id, city, station, building_id as buildingId, time, time_prefix as timePrefix
+        select id, city, station, building_id as buildingId, time, time_prefix as timePrefix, heat_supply as heatSupply
         from building_supply;
     </select>
 
     <select id="selectById" parameterType="java.lang.Integer" resultType="BuildingSupply">
-        select id, city, station, building_id as buildingId, time, time_prefix as timePrefix
+        select id, city, station, building_id as buildingId, time, time_prefix as timePrefix, heat_supply as heatSupply
         from building_supply
         where id = #{id};
     </select>
 
     <insert id="insertOneData" parameterType="BuildingSupply">
         insert into building_supply
-            (city, station, building_id, time, time_prefix)
-            value (#{city}, #{station}, #{buildingId}, #{time}, #{timePrefix})
+            (city, station, building_id, time, time_prefix, heat_supply)
+            value (#{city}, #{station}, #{buildingId}, #{time}, #{timePrefix}, #{heatSupply})
     </insert>
 </mapper>

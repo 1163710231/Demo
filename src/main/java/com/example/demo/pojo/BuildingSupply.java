@@ -16,4 +16,5 @@ public class BuildingSupply {
     private int buildingId;
     private Date time;
     private String timePrefix;
+    private float heatSupply;
 }

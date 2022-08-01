@@ -32,11 +32,18 @@ public class BuildingSupplyController {
         return buildingSupply;
     }
 
-    @GetMapping("/insertData/{insertNumber}")
+    @GetMapping("/insertRandomData/{insertNumber}")
     @ResponseBody
-    public String insertData(@PathVariable("insertNumber") int insertNumber) {
+    public String insertRandomData(@PathVariable("insertNumber") int insertNumber) {
         Random random = new Random();
-        int insertSucceedNumber = buildingSupplyService.insertData(random, insertNumber);
+        int insertSucceedNumber = buildingSupplyService.insertRandomData(random, insertNumber);
+        return "成功插入了 " + insertSucceedNumber + " 条数据";
+    }
+
+    @GetMapping("/insertBuildingSupplyData/{buildingNumber}/{dayNumber}/{dataNumberPerDay}")
+    @ResponseBody
+    public String insertBuildingSupplyData(@PathVariable("buildingNumber") int buildingNumber, @PathVariable("dayNumber") int dayNumber, @PathVariable("dataNumberPerDay") int dataNumberPerDay) {
+        int insertSucceedNumber = buildingSupplyService.insertBuildingSupplyData(buildingNumber, dayNumber, dataNumberPerDay);
         return "成功插入了 " + insertSucceedNumber + " 条数据";
     }
 }

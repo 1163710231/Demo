@@ -30,7 +30,7 @@ public class QuartzConfig {
                 .build();
     }
 
-    @Bean
+//    @Bean
     public Trigger insertEmployeeTrigger() {
         return TriggerBuilder.newTrigger()
                 .forJob(insertEmployeeJobDetail())

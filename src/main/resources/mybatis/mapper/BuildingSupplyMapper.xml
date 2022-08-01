@@ -12,10 +12,16 @@
         where id = #{id};
     </select>
 
-    <select id="selectByBuildingIdAndDay" resultType="BuildingSupply">
+    <select id="selectByBuildingIdAndDate" resultType="BuildingSupply">
         select id, city, station, building_id as buildingId, `time`, time_prefix as timePrefix, heat_supply as heatSupply
         from building_supply
         where building_id = #{buildingId} and TO_DAYS(`time`) = TO_DAYS(#{day,jdbcType=DATE});
+    </select>
+
+    <select id="selectByBuildingIdAndDay" resultType="BuildingSupply">
+        select id, city, station, building_id as buildingId, `time`, time_prefix as timePrefix, heat_supply as heatSupply
+        from building_supply
+        where building_id = #{buildingId} and time_prefix = #{timePrefix};
     </select>
 
     <insert id="insertOneData" parameterType="BuildingSupply">

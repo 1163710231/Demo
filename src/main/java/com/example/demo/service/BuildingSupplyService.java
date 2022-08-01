@@ -2,6 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.mapper.BuildingSupplyMapper;
 import com.example.demo.pojo.BuildingSupply;
+import com.example.demo.segmentTree.SegmentTree;
+import com.example.demo.segmentTree.SegmentTreeFactory;
+import com.example.demo.segmentTree.TreeNode;
+import com.example.demo.segmentTree.TreeNodeMergeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -115,18 +119,58 @@ public class BuildingSupplyService {
     }
 
     /**
-     *
      * @param buildingId 要查询的建筑物的 id
-     * @param day 要查询的日期（天）
+     * @param day        要查询的日期（天）
      * @return 所有查询到的 BuildingSupply 数据
      */
-    public List<BuildingSupply> selectByBuildingIdAndDay(String buildingId, Date day) {
+    public List<BuildingSupply> selectByBuildingIdAndDate(String buildingId, Date day) {
         long startTime = System.currentTimeMillis();  // 获取当前系统时间
-        List<BuildingSupply> buildingSupplies = buildingSupplyMapper.selectByBuildingIdAndDay(buildingId, day);
+        List<BuildingSupply> buildingSupplies = buildingSupplyMapper.selectByBuildingIdAndDate(buildingId, day);
         // 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数
         long endTime = System.currentTimeMillis();
         double usedSecond = (endTime - startTime) / 1000.0;
         System.out.println("成功查询到 " + buildingSupplies.size() + " 条数据，共用时 " + usedSecond + " 秒");
         return buildingSupplies;
+    }
+
+    /**
+     * @param buildingId 要查询的建筑物的 id
+     * @param day        要查询的日期（天）
+     * @return 所有查询到的 BuildingSupply 数据
+     */
+    public List<BuildingSupply> selectByBuildingIdAndDay(String buildingId, Date day) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        long startTime = System.currentTimeMillis();  // 获取当前系统时间
+        List<BuildingSupply> buildingSupplies = buildingSupplyMapper.selectByBuildingIdAndDay(buildingId, sdf.format(day));
+        // 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数
+        long endTime = System.currentTimeMillis();
+        double usedSecond = (endTime - startTime) / 1000.0;
+        System.out.println("成功查询到 " + buildingSupplies.size() + " 条数据，共用时 " + usedSecond + " 秒");
+        return buildingSupplies;
+    }
+
+    /**
+     *
+     * @param buildingSupplies BuildingSupply 数据组成的 List
+     * @return 用 buildingSupplies 生成的线段树
+     */
+    public SegmentTree<TreeNode> useBuildingSupplyListOnSegmentTree(List<BuildingSupply> buildingSupplies) {
+        // 把 buildingSupplies 中的 heatSupply 值存储在数组中，同时求 heatSupplies 的平均值
+        double sum = 0;
+        Integer[] heatSupplies = new Integer[buildingSupplies.size()];
+        for (int i = 0; i < heatSupplies.length; i++) {
+            heatSupplies[i] = (int) buildingSupplies.get(i).getHeatSupply();
+            sum += heatSupplies[i];
+        }
+        int averageHeatSupply = (int) (sum / heatSupplies.length);
+        // 用 averageHeatSupply 与 heatSupplies 中的每一项相减，使得 heatSupplies 中的元素有正有负
+        for (int i = 0; i < heatSupplies.length; i++) {
+            heatSupplies[i] = heatSupplies[i] - averageHeatSupply;
+        }
+        // 用 heatSupplies 构建线段树并查找供热量最大的区间的左右边界下标
+        TreeNode[] dd = SegmentTreeFactory.getTreeNodes(heatSupplies);
+        TreeNodeMergeTool treeNodeMergeTool = new TreeNodeMergeTool();
+
+        return new SegmentTree<TreeNode>(dd, treeNodeMergeTool);
     }
 }

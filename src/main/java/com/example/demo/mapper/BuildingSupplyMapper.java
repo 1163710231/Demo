@@ -15,7 +15,9 @@ public interface BuildingSupplyMapper {
 
     BuildingSupply selectById(int id);
 
-    List<BuildingSupply> selectByBuildingIdAndDay(@Param("buildingId") String buildingId, @Param("day") Date day);
+    List<BuildingSupply> selectByBuildingIdAndDate(@Param("buildingId") String buildingId, @Param("day") Date day);
+
+    List<BuildingSupply> selectByBuildingIdAndDay(@Param("buildingId") String buildingId, @Param("timePrefix") String timePrefix);
 
     int insertOneData(BuildingSupply buildingSupply);
 }

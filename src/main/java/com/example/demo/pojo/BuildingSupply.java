@@ -13,7 +13,7 @@ public class BuildingSupply {
     private int id;
     private String city;
     private String station;
-    private int buildingId;
+    private String buildingId;
     private Date time;
     private String timePrefix;
     private float heatSupply;

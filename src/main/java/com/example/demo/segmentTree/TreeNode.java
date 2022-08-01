@@ -88,12 +88,14 @@ public class TreeNode {
     @Override
     public String toString() {
         return "TreeNode{" +
-                "leftBorder=" + leftBorder +
-                ", rightBorder=" + rightBorder +
-                ", allSum=" + allSum +
+                "allSum=" + allSum +
                 ", maxLeftSum=" + maxLeftSum +
                 ", maxRightSum=" + maxRightSum +
                 ", maxSum=" + maxSum +
+                ", leftMaxRightBorder=" + leftMaxRightBorder +
+                ", rightMaxLeftBorder=" + rightMaxLeftBorder +
+                ", leftBorder=" + leftBorder +
+                ", rightBorder=" + rightBorder +
                 '}';
     }
 }

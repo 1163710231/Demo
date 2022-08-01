@@ -43,7 +43,7 @@ public class BuildingSupplyService {
             int buildingId = random.nextInt(1000);
             buildingSupply.setCity("哈尔滨");
             buildingSupply.setStation("清泉" + (buildingId / 100));
-            buildingSupply.setBuildingId(buildingId);
+            buildingSupply.setBuildingId(String.valueOf(buildingId));
 
             // 设置 Date 及相应的 Calendar 和 SimpleDateFormat
             Date date = new Date();
@@ -80,7 +80,7 @@ public class BuildingSupplyService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Random random = new Random();
         // 对于每个建筑物
-        for (int building_id = 0; building_id < buildingNumber; building_id++) {
+        for (int buildingId = 0; buildingId < buildingNumber; buildingId++) {
             // 对于每个建筑物的每天
             for (int day = 0; day < dayNumber; day++) {
                 // 每天生成指定数量的数据
@@ -89,8 +89,8 @@ public class BuildingSupplyService {
 
                     // 设置 city、station 和 building_id
                     buildingSupply.setCity("哈尔滨");
-                    buildingSupply.setStation("清泉" + (building_id / 100));
-                    buildingSupply.setBuildingId(building_id);
+                    buildingSupply.setStation("清泉" + (buildingId / 100));
+                    buildingSupply.setBuildingId(String.valueOf(buildingId));
 
                     // 设置 Date 及相应的 Calendar 和 SimpleDateFormat
                     Date date = new Date();
@@ -112,5 +112,21 @@ public class BuildingSupplyService {
         double usedMinute = (endTime - startTime) / 1000.0 / 60.0;
         System.out.println("成功插入了 " + insertCount + " 条数据，共用时 " + usedMinute + " 分钟");
         return insertCount;
+    }
+
+    /**
+     *
+     * @param buildingId 要查询的建筑物的 id
+     * @param day 要查询的日期（天）
+     * @return 所有查询到的 BuildingSupply 数据
+     */
+    public List<BuildingSupply> selectByBuildingIdAndDay(String buildingId, Date day) {
+        long startTime = System.currentTimeMillis();  // 获取当前系统时间
+        List<BuildingSupply> buildingSupplies = buildingSupplyMapper.selectByBuildingIdAndDay(buildingId, day);
+        // 获取当前的系统时间，与初始时间相减就是程序运行的毫秒数
+        long endTime = System.currentTimeMillis();
+        double usedSecond = (endTime - startTime) / 1000.0;
+        System.out.println("成功查询到 " + buildingSupplies.size() + " 条数据，共用时 " + usedSecond + " 秒");
+        return buildingSupplies;
     }
 }

@@ -50,31 +50,41 @@ public class BuildingSupplyController {
 
     @GetMapping("/selectMaxIntervalByBuildingIdAndDate/{buildingId}/{dayOffset}")
     @ResponseBody
+    public String selectMaxIntervalByBuildingIdAndDate(@PathVariable("buildingId") String buildingId, @PathVariable("dayOffset") int dayOffset) {
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, dayOffset);
+        date = calendar.getTime();
+        // 用 selectByBuildingIdAndDate 进行查询
+        List<BuildingSupply> buildingSupplies = buildingSupplyService.selectByBuildingIdAndDate(buildingId, date);
+        SegmentTree<TreeNode> segmentTree = buildingSupplyService.useBuildingSupplyListOnSegmentTree(buildingSupplies);
+        TreeNode rootNode = segmentTree.queryInterval(0, buildingSupplies.size() - 1);
+        int leftBorder = rootNode.getLeftBorder();
+        int rightBorder = rootNode.getRightBorder();
+        System.out.println("selectByBuildingIdAndDate:" + leftBorder + " || " + rightBorder);
+        System.out.println(rootNode);
+        System.out.println();
+        return buildingSupplies.toString();
+    }
+
+    @GetMapping("/selectMaxIntervalByBuildingIdAndDay/{buildingId}/{dayOffset}")
+    @ResponseBody
     public String selectMaxIntervalByBuildingIdAndDay(@PathVariable("buildingId") String buildingId, @PathVariable("dayOffset") int dayOffset) {
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, dayOffset);
         date = calendar.getTime();
-        // 先用 selectByBuildingIdAndDate 进行查询
-        List<BuildingSupply> buildingSupplies1 = buildingSupplyService.selectByBuildingIdAndDate(buildingId, date);
-        SegmentTree<TreeNode> segmentTree1 = buildingSupplyService.useBuildingSupplyListOnSegmentTree(buildingSupplies1);
-        TreeNode rootNode1 = segmentTree1.queryInterval(0, buildingSupplies1.size() - 1);
-        int leftBorder1 = rootNode1.getLeftBorder();
-        int rightBorder1 = rootNode1.getRightBorder();
-        System.out.println("selectByBuildingIdAndDate:" + leftBorder1 + " || " + rightBorder1);
-        System.out.println(rootNode1);
-
-        // 再用 selectByBuildingIdAndDay 进行查询
-        List<BuildingSupply> buildingSupplies2 = buildingSupplyService.selectByBuildingIdAndDay(buildingId, date);
-        SegmentTree<TreeNode> segmentTree2 = buildingSupplyService.useBuildingSupplyListOnSegmentTree(buildingSupplies2);
-        TreeNode rootNode2 = segmentTree2.queryInterval(0, buildingSupplies2.size() - 1);
-        int leftBorder2 = rootNode2.getLeftBorder();
-        int rightBorder2 = rootNode2.getRightBorder();
-        System.out.println("selectByBuildingIdAndDay:" + leftBorder2 + " || " + rightBorder2);
-        System.out.println(rootNode2);
-
+        // 用 selectByBuildingIdAndDay 进行查询
+        List<BuildingSupply> buildingSupplies = buildingSupplyService.selectByBuildingIdAndDay(buildingId, date);
+        SegmentTree<TreeNode> segmentTree = buildingSupplyService.useBuildingSupplyListOnSegmentTree(buildingSupplies);
+        TreeNode rootNode = segmentTree.queryInterval(0, buildingSupplies.size() - 1);
+        int leftBorder = rootNode.getLeftBorder();
+        int rightBorder = rootNode.getRightBorder();
+        System.out.println("selectByBuildingIdAndDay:" + leftBorder + " || " + rightBorder);
+        System.out.println(rootNode);
         System.out.println();
-        return buildingSupplies1.toString();
+        return buildingSupplies.toString();
     }
 }
